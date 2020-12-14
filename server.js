@@ -15,8 +15,26 @@ const MLBBoxscores = require('mlbboxscores');
 const connectDB = require('./config/db.js');
 connectDB();
 
+const cors = require('cors');
+
+const corsOptions = {
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers':
+        'Origin, X-Requested-With, Content-Type, Accept',
+};
+
 const app = express();
 app.use(bodyParser.json());
+app.use(
+    bodyParser.urlencoded({
+        extended: false,
+    })
+);
+app.use(cors(corsOptions));
 
 app.listen(PORT, () => {
     console.log(`Server running at ${PORT}`);
@@ -24,15 +42,6 @@ app.listen(PORT, () => {
 
 app.get('/', (req, res) => {
     res.send('API running...');
-});
-
-var options = {
-    path: 'year_2020/month_08/day_23/',
-};
-
-var mlbboxscores = new MLBBoxscores(options);
-mlbboxscores.get((err, boxscores) => {
-    console.log(boxscores);
 });
 
 const userRouters = require('./routes/userRoutes');
