@@ -2,8 +2,12 @@ const mongoose = require('mongoose');
 
 const userSchema = mongoose.Schema(
     {
-        firstName: String,
-        lastName: String,
+        firstName: {
+            type: String,
+        },
+        lastName: {
+            type: String,
+        },
         twitterHandle: {
             type: String,
             required: true,

@@ -14,6 +14,7 @@ const connectDB = require('./config/db.js');
 connectDB();
 
 const app = express();
+app.use(bodyParser.json());
 
 app.listen(PORT, () => {
     console.log(`Server running at ${PORT}`);
@@ -22,3 +23,7 @@ app.listen(PORT, () => {
 app.get('/', (req, res) => {
     res.send('API running...');
 });
+
+const userRouters = require('./routes/userRoutes');
+
+app.use('/users', userRouters);
