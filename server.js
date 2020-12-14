@@ -10,6 +10,8 @@ const express = require('express');
 const dotenv = require('dotenv');
 dotenv.config();
 
+const MLBBoxscores = require('mlbboxscores');
+
 const connectDB = require('./config/db.js');
 connectDB();
 
@@ -22,6 +24,15 @@ app.listen(PORT, () => {
 
 app.get('/', (req, res) => {
     res.send('API running...');
+});
+
+var options = {
+    path: 'year_2020/month_08/day_23/',
+};
+
+var mlbboxscores = new MLBBoxscores(options);
+mlbboxscores.get((err, boxscores) => {
+    console.log(boxscores);
 });
 
 const userRouters = require('./routes/userRoutes');
