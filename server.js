@@ -45,5 +45,7 @@ app.get('/', (req, res) => {
 });
 
 const userRouters = require('./routes/userRoutes');
+const dataRoutes = require('./routes/dataRoutes');
 
 app.use('/users', userRouters);
+app.use('/data', dataRoutes);
